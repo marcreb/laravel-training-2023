@@ -1,0 +1,125 @@
+Create the database based on MODELS>.php
+php artisan migrate:fresh
+
+
+php artisan tinker
+
+> $user->name = 'MarcReb';                                                                                                                        
+= "MarcReb"
+
+> $user->email = 'marcrebadina@gmail.com';                                                                                                        
+= "marcrebadina@gmail.com"
+
+> $user->password = bcrypt('admin2468'); 
+
+$user->save();
+
+
+
+EDIT databse
+
+$user->name = 'MarcAdina';
+$user->save();
+
+User::find(1);
+
+User::findOrFail(1222);
+
+User::all();
+
+$users = User::all();
+
+$users->pluck('name');
+
+$users->pluck('email');
+
+$users->first();
+
+$users[0] $users[1]
+
+
+
+
+CREATE DATABASE FROM PHP ARTISAN MIGRATE
+php artisan make:migration create_#pluralnamehere#_table
+php artisan make:model product
+
+php artisan make:migration create_brands_table
+php artisan make:model Brand
+
+php artisan make:migration create_images_table
+php artisan make:model Image
+
+## php artisan make:migration create_posts_table
+
+this will show in database>migration table and edit the fields as needed
+
+## php artisan migrate
+
+## php artisan make:model Post
+
+## php artisan tinker
+
+	### App\Models\Post::all();  
+
+	### App\Models\Post::count();  
+
+
+	### $post = new App\Models\Post;  
+
+	### $post->title = 'My First Post';    
+	### $post->excerpt = 'Loreim Ipsum Dolor Excerpt';  
+	### $post->body  = 'Full Details here Loreim Ipsum Dolor Excerpt';
+	### $post->save();  
+	### use App\Models\Post;                                                
+	### Post::count(); 
+	### Post::find(1);
+
+
+	### $post = App\Models\Post::first(); 
+ 	### $post->body = '<p>' . $post->body . '</p>';  
+
+	### $post = App\Models\Post::find(2); 
+
+	### use App\Models\Post; -> skip the full namespace
+	### $post = Post::first();
+	
+	### Post::create(['title' => 'My Fourth Post', 'excerpt' => 'Fourth Post
+ Excerpt', 'body' => 'BBody content here for fourth']);  
+
+
+	### $post->update(['excerpt' => 'Changed Excerpt']);
+
+
+
+CREATE CATEGORIES
+
+php artisan make:model Category -m   _>> SHORTCUT
+>Then edit the database migration php add the columns then after adding the columns run 
+
+php artisan migrate:fresh 
+
+php artisan tinker 
+
+> use App\Models\Category;                                            
+> $c = new Category;
+> $c->name = 'Category 1';                                            
+
+> $c->slug = 'category-1';                                            
+
+> $c->save();        
+
+
+App\Models\Category::first()                                                   
+
+
+composer require itsgoingd/clockwork
+
+php artisan migrate:fresh --seed
+
+
+App\Models\Post::first()->user;    
+App\Models\Post::with('user')->first();  
+
+
+php artisan make:factory ProductFactory 

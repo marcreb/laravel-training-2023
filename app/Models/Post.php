@@ -1,74 +1,32 @@
 <?php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\File;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
-class Post
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Post extends Model
 {
-    public $title;
-    public $excerpt;
-    public $date;
-    public $body;
-    public $slug;
+    use HasFactory;
+    //protected $guarded = ['id'];
+    protected $fillable = ['title', 'excerpt', 'body', 'slug', 'category_id'];
 
-    public function __construct($title, $excerpt, $date, $body, $slug)
+    // public function getRouteKeyName() // Use this if you dont want to have  Route::get('/posts/{post:slug}', and jsut use Route::get('/posts/{post}'
+    // {
+    //     return 'slug';
+    // }
+
+    public function category()
     {
-        $this->title = $title;
-        $this->excerpt = $excerpt;
-        $this->date = $date;
-        $this->body = $body;
-        $this->slug = $slug;
-    }
-
-    public static function find($slug) {
-
-        // if(! file_exists($path = resource_path("posts/{$slug}.html"))) {
-        //     //abort(404);
-        //     throw new ModelNotFoundException();
-        //  }
-
-        // return cache()->remember("posts.{slug}", 3, fn() => file_get_contents($path));
-
-
-        // return static::all()->firstWhere('slug', $slug);
-
-        $post = static::all()->firstWhere('slug', $slug);
-
-        if (! $post) {
-            throw new ModelNotFoundException();
-        }
-
-        return $post;
+        //hasOne, hasMany, belongsTo, belongsToMany
+        return $this->belongsTo(Category::class);
 
     }
 
-    public static function findOrFail($slug) {
-
-        $post = static::find($slug);
-
-        if (! $post) {
-            throw new ModelNotFoundException();
-        }
-
-        return $post;
-
-    }
-
-    public static function all() {
-        return cache()->rememberForever('posts.all', function () {
-            return collect(File::files(resource_path("posts")))
-            ->map(fn($file) => YamlFrontMatter::parseFile($file))
-            ->map(fn($document) => new Post(
-                    $document->title,
-                    $document->excerpt,
-                    $document->date,
-                    $document->body(),
-                    $document->slug
-            ))
-            ->sortByDesc('date');
-
-        });
+    public function user()
+    {
+        //hasOne, hasMany, belongsTo, belongsToMany
+        return $this->belongsTo(User::class);
 
     }
 }
