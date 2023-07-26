@@ -4,13 +4,13 @@ php artisan migrate:fresh
 
 php artisan tinker
 
-> $user->name = 'MarcReb';                                                                                                                        
+> $user->name = 'MarcReb';
 = "MarcReb"
 
-> $user->email = 'marcrebadina@gmail.com';                                                                                                        
+> $user->email = 'marcrebadina@gmail.com';
 = "marcrebadina@gmail.com"
 
-> $user->password = bcrypt('admin2468'); 
+> $user->password = bcrypt('admin2468');
 
 $user->save();
 
@@ -60,32 +60,32 @@ this will show in database>migration table and edit the fields as needed
 
 ## php artisan tinker
 
-	### App\Models\Post::all();  
+	### App\Models\Post::all();
 
-	### App\Models\Post::count();  
+	### App\Models\Post::count();
 
 
-	### $post = new App\Models\Post;  
+	### $post = new App\Models\Post;
 
-	### $post->title = 'My First Post';    
-	### $post->excerpt = 'Loreim Ipsum Dolor Excerpt';  
+	### $post->title = 'My First Post';
+	### $post->excerpt = 'Loreim Ipsum Dolor Excerpt';
 	### $post->body  = 'Full Details here Loreim Ipsum Dolor Excerpt';
-	### $post->save();  
-	### use App\Models\Post;                                                
-	### Post::count(); 
+	### $post->save();
+	### use App\Models\Post;
+	### Post::count();
 	### Post::find(1);
 
 
-	### $post = App\Models\Post::first(); 
- 	### $post->body = '<p>' . $post->body . '</p>';  
+	### $post = App\Models\Post::first();
+ 	### $post->body = '<p>' . $post->body . '</p>';
 
-	### $post = App\Models\Post::find(2); 
+	### $post = App\Models\Post::find(2);
 
 	### use App\Models\Post; -> skip the full namespace
 	### $post = Post::first();
-	
+
 	### Post::create(['title' => 'My Fourth Post', 'excerpt' => 'Fourth Post
- Excerpt', 'body' => 'BBody content here for fourth']);  
+ Excerpt', 'body' => 'BBody content here for fourth']);
 
 
 	### $post->update(['excerpt' => 'Changed Excerpt']);
@@ -95,22 +95,22 @@ this will show in database>migration table and edit the fields as needed
 CREATE CATEGORIES
 
 php artisan make:model Category -m   _>> SHORTCUT
->Then edit the database migration php add the columns then after adding the columns run 
+>Then edit the database migration php add the columns then after adding the columns run
 
-php artisan migrate:fresh 
+php artisan migrate:fresh
 
-php artisan tinker 
+php artisan tinker
 
-> use App\Models\Category;                                            
+> use App\Models\Category;
 > $c = new Category;
-> $c->name = 'Category 1';                                            
+> $c->name = 'Category 1';
 
-> $c->slug = 'category-1';                                            
+> $c->slug = 'category-1';
 
-> $c->save();        
+> $c->save();
 
 
-App\Models\Category::first()                                                   
+App\Models\Category::first()
 
 
 composer require itsgoingd/clockwork
@@ -118,8 +118,12 @@ composer require itsgoingd/clockwork
 php artisan migrate:fresh --seed
 
 
-App\Models\Post::first()->user;    
-App\Models\Post::with('user')->first();  
+App\Models\Post::first()->user;
+App\Models\Post::with('user')->first();
 
 
-php artisan make:factory ProductFactory 
+php artisan make:factory ProductFactory
+
+CREATE A CONTROLLER
+
+php artisan make:controller ProductController

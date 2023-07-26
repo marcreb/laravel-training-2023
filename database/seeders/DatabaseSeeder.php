@@ -66,36 +66,53 @@ class DatabaseSeeder extends Seeder
         //$user = User::factory()->create();
 
         $category1 = Category::create([
-            'name' => 'Category 1',
-            'slug' => 'category-1'
+            'name' => 'TV',
+            'slug' => 'tv'
         ]);
 
         $category2 = Category::create([
-            'name' => 'Category 2',
-            'slug' => 'category-2'
+            'name' => 'Electric Fan',
+            'slug' => 'electric-fan'
         ]);
 
         $category3 = Category::create([
-            'name' => 'Category 3',
-            'slug' => 'category-3'
+            'name' => 'Oven',
+            'slug' => 'oven'
+        ]);
+
+        $category4 = Category::create([
+            'name' => 'Lights',
+            'slug' => 'lights'
         ]);
 
         $brand1 = Brand::create([
-            'name' => 'Brand 1',
-            'slug' => 'brand-1',
+            'name' => 'Panasonic',
+            'slug' => 'panasonic',
             'category_id' => $category1->id
         ]);
 
         $brand2 = Brand::create([
-            'name' => 'Brand 2',
-            'slug' => 'brand-2',
+            'name' => 'WhirlPool',
+            'slug' => 'whirlpool',
             'category_id' => $category1->id
         ]);
 
         $brand3 = Brand::create([
-            'name' => 'Brand 3',
-            'slug' => 'brand-3',
+            'name' => 'Sony',
+            'slug' => 'sony',
             'category_id' => $category3->id
+        ]);
+
+        $brand4 = Brand::create([
+            'name' => 'Fukuda',
+            'slug' => 'fukuda',
+            'category_id' => $category3->id
+        ]);
+
+        $brand5 = Brand::create([
+            'name' => 'OMNI',
+            'slug' => 'omni',
+            'category_id' => $category4->id
         ]);
 
         Post::create([
@@ -170,6 +187,18 @@ class DatabaseSeeder extends Seeder
             'brand_id' => $brand1->id,
             'name' => 'Product Name 5',
             'slug' => 'product-name-5',
+            'published_at' => Carbon::now(),
+            'price' => $faker->numberBetween($min = 1500, $max = 6000),
+            'image' => $faker->image('public/storage/images', 640, 480, null, false)
+
+        ]);
+
+        Product::create([
+            'user_id' => $user->id,
+            'category_id' => $category4->id,
+            'brand_id' => $brand5->id,
+            'name' => 'Product Name 6',
+            'slug' => 'product-name-6',
             'published_at' => Carbon::now(),
             'price' => $faker->numberBetween($min = 1500, $max = 6000),
             'image' => $faker->image('public/storage/images', 640, 480, null, false)

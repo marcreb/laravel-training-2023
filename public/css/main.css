@@ -68,10 +68,10 @@ h1 {
     bottom: 3px;
 }
 button:hover {
-opacity: 0.9;
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    opacity: 0.9;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 .green-button span{
     position: relative;
@@ -92,5 +92,26 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 .nav-link.active {
     color:black;
     border: 1px solid black;
- 
+
+}
+.featured-image-box {
+    display: none;
+}
+
+.search-form {
+    background: #ccc;
+    padding: 15px 30px 25px;
+    margin-bottom: 30px;
+}
+.search-form button {
+    margin-top: 30px;
+}
+
+.col-20 {
+    width: 20%;
+}
+.imagebox {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
 }

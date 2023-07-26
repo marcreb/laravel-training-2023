@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Product;
@@ -20,21 +21,9 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
-    // \Illuminate\Support\Facades\DB::listen(function ($query) {
-    //     logger($query->sql, $query->bindings);
-    // });
-    //install composer require itsgoingd/clockwork
+Route::get('/', [ProductController::class, 'index'])->name('home');
 
-    // return view('posts', [
-    //     'posts' => Post::all()
-    // ]);
-        return view('posts', [
-            // 'posts' => Post::with('category')->get()
-
-            'posts' => Post::latest('published_at')->with('category')->get()
-        ]);
-});
+// request()->routeIs('home') -> check if the page is home
 
 Route::get('/posts', function () {
 
@@ -81,39 +70,47 @@ Route::get('posts/{post:slug}', function (Post $post) { // wrap model binding
     ]);
 });
 
-Route::get('categories/{category:slug}', function (Category $category) {
+// Route::get('/product-category/{category:slug}', function (Category $category) {
 
-    // return view('posts', [
-    //     'posts' => $category->posts
-    // ]);
+//     // return view('posts', [
+//     //     'posts' => $category->posts
+//     // ]);
 
-    return view('products', [
-        'products' => $category->products
-        // 'posts' => $category->posts
-    ]);
+//     return view('products.index', [
+//         'products' => $category->products,
+//         // 'currentCategory' => $category,
+//         'brands' => Brand::all()
+//     ]);
 
-});
+// });
 
-Route::get('products', function () {
+Route::get('products', [ProductController::class, 'index'])->name('products');
+Route::get('product-category/{category:slug}', [ProductController::class, 'showCategories'])->name('product-category');
 
-    return view('products', [
-        // 'products' => Product::all()
-        'products' => Product::latest('published_at')->get()
-    ]);
+// Route::get('products', function () {
 
-});
+//     return view('products', [
+//         // 'products' => Product::all()
+//         'products' => Product::latest('published_at')->get(),
+//         'brands' => Brand::all()
+//     ]);
 
-Route::get('products/{product:slug}', function (Product $product) { // wrap model binding
+// });
 
-    return view('product', [
-        'product' => $product
-    ]);
-});
+// Route::get('products/{product:slug}', function (Product $product) { // wrap model binding
+
+//     return view('product', [
+//         'product' => $product
+//     ]);
+// });
+
+Route::get('product/{product:slug}', [ProductController::class, 'show']);
 
 
 Route::get('authors/{author:username}', function (User $author) { // wrap model binding
 
-    return view('products', [
-        'products' => $author->products
+    return view('products.index', [
+        'products' => $author->products,
+        'brands' => Brand::all()
     ]);
 });

@@ -9,6 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
+
+
     public function posts()
     {
         //hasOne, hasMany, belongsTo, belongsToMany
