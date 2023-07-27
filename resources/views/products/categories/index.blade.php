@@ -2,7 +2,6 @@
 
 @section('content')
     {{-- //@foreach ($products->skip(1) as $product) --}}
-
 <main>
     <section class="py-5">
         <div class="container">
@@ -29,10 +28,15 @@
                         </div>
                     </div>
                 </div>
+
                 @endforeach
+
                 @else
                 <p>No Products Found</p>
                 @endif
+                <div class="my-5 d-flex align-items-center  flex-column">
+                    {{ $products->links() }}
+                </div>
             </div>
         </div>
     </section>

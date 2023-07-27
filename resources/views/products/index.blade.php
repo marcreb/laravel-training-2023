@@ -29,6 +29,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 @endforeach
                 @else
                 <p>No Products Found</p>

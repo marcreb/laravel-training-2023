@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username'
     ];
 
     /**
@@ -38,6 +38,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function setPasswordAttribute($password) // MUTATOR setUsernameAttribute() para gumana ung set attribute
+    {
+        $this->attributes['password'] = bcrypt($password);
+
+    }
+
+    // public function getUsernameAttribute($username) // accessor inverse ng set**Attribute
+    // {
+    //    return ucwords($username); //sets the format of the field when saving
+
+    // }
     public function posts()
     {
         //hasOne, hasMany, belongsTo, belongsToMany

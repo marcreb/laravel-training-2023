@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RegisterController;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Product;
@@ -85,7 +86,7 @@ Route::get('posts/{post:slug}', function (Post $post) { // wrap model binding
 // });
 
 Route::get('products', [ProductController::class, 'index'])->name('products');
-Route::get('product-category/{category:slug}', [ProductController::class, 'showCategories'])->name('product-category');
+Route::get('product-category/{category:slug}', [ProductController::class, 'index'])->name('product-category');
 
 // Route::get('products', function () {
 
@@ -114,3 +115,6 @@ Route::get('authors/{author:username}', function (User $author) { // wrap model 
         'brands' => Brand::all()
     ]);
 });
+
+Route::get('register', [RegisterController::class, 'create']);
+Route::post('register', [RegisterController::class, 'store']);

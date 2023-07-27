@@ -10,14 +10,25 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Category $category)
     {
 
-        return view('products.index', [
-            'products' => Product::latest()->filter(request(['search', 'brand']))->get(),
-            'brands' => Brand::all(),
+        $filters = [
+            'search' => request('search'),
+            'brand' => request('brand'),
+            'category' => $category->id, // Pass the category's ID here
+        ];
+
+        $brandFilter = $category->id ? $category->brands : Brand::all();
+
+        // $products = Product::latest()->filter($filters)->get();
+        $products = Product::latest()->filter($filters)->paginate(2)->withQueryString();
+
+        return view('products/categories.index', [
+            'products' => $products,
+            'brands' => $brandFilter,
             'categories' => Category::all(),
-            'currentBrand' => Brand::firstWhere('slug', request('brand'))
+            'currentBrand' => Brand::firstWhere('slug', request('brand')),
         ]);
     }
 
@@ -28,21 +39,5 @@ class ProductController extends Controller
         ]);
     }
 
-    public function showCategories(Category $category)
-    {
-        $filters = [
-            'search' => request('search'),
-            'brand' => request('brand'),
-            'category' => $category->id, // Pass the category's ID here
-        ];
 
-        $products = Product::latest()->filter($filters)->get();
-
-        return view('products/categories.index', [
-            'products' => $products,
-            'brands' => $category->brands,
-            'categories' => Category::all(),
-            'currentBrand' => Brand::firstWhere('slug', request('brand')),
-        ]);
-    }
 }

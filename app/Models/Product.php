@@ -19,27 +19,17 @@ class Product extends Model
         $query->when($filters['search'] ?? false, fn($query, $search) =>
         $query
             ->where('name', 'like', '%' . $search . '%')
+
         );
 
         $query->when($filters['brand'] ?? false, fn($query, $brand) =>
-        // $query
-        // ->whereExists(fn($query) =>
-        //     $query->from('brands')
-        //         ->whereColumn('brands.id', 'products.brand_id')
-        //         ->where('brands.slug', $brand))
-        // );
-
             $query->whereHas('brand', fn ($query) =>
                 $query->where('slug', $brand))
         );
+
         $query->when($filters['category'] ?? false, function ($query, $category) {
             $query->where('category_id', $category);
         });
-        // if($filters['search'] ?? false) {
-        //     $query
-        //         ->where('name', 'like', '%' . request('search') . '%');
-        //         // ->orWhere('image', 'like', '%' . request('search') . '%');
-        // }
 
     }
 
