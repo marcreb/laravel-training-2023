@@ -7,4 +7,7 @@
     <p>{!! $product->price !!}</p>
     <img src="/storage/images/{{$product->image}}">
     <p><a href="/categories/{{ $product->category->slug }}"> {{ $product->category->name }} </a></p>
-@endsection
+
+
+
+ @endsection

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\Review;
 
 use Faker\Generator as Faker;
 use Carbon\Carbon;
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder
         // Product::truncate();
         // Post::truncate();
 
-        //Product::factory(5)->create();
+        // Product::factory(5)->create();
         // Post::factory(5)->create();
         // // User::factory(3)->create();
         // $user = User::factory()->create();
@@ -259,8 +260,31 @@ class DatabaseSeeder extends Seeder
 
         ]);
 
+        $product1 = Product::create([
+            'user_id' => $user->id,
+            'category_id' => $tv->id,
+            'brand_id' => $panasonic->id,
+            'name' => 'Product Name TV 11',
+            'slug' => 'product-name-tv-11',
+            'published_at' => Carbon::now(),
+            'price' => $faker->numberBetween($min = 1500, $max = 6000),
+            'image' => $faker->image('public/storage/images', 640, 480, null, false)
 
+        ]);
 
+        Review::create([
+            'user_id' => $user->id,
+            'product_id' => $product1->id,
+            'body' => $faker->paragraph(),
+        ]);
+
+        Review::create([
+            'user_id' => $user->id,
+            'product_id' => $product1->id,
+            'body' => $faker->paragraph(),
+        ]);
+
+        //Reviews::factory(5)->create();
 
 
     }

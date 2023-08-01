@@ -16,23 +16,23 @@
                     <div class="form-floating mb-3">
                         <input type="name" class="form-control" name="name" id="name" aria-describedby="nameHelp" tabindex="1" value="{{ old('name') }}">
                         <label for="name" class="form-label">Name</label>
-                        @error('name')
+                        {{-- @error('name')
                             <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        @enderror --}}
                     </div>
                     <div class="form-floating mb-3">
                         <input type="username" class="form-control" name="username" id="username" aria-describedby="username" tabindex="2" value="{{ old('username') }}">
                         <label for="username" class="form-label">Username</label>
-                        @error('username')
+                        {{-- @error('username')
                             <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        @enderror --}}
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" tabindex="3" value="{{ old('email') }}">
                         <label for="email" class="form-label">Email address</label>
-                        @error('email')
+                        {{-- @error('email')
                             <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        @enderror --}}
                     </div>
                     <div class="form-floating mb-3">
 
@@ -40,17 +40,21 @@
 
                         <label for="password" class="form-label">Password</label>
                         <i class="bi bi-eye-slash" id="togglePassword"></i>
-                        @error('password')
+                        {{-- @error('password')
                             <p class="text-danger">{{ $message }}</p>
-                        @enderror
+                        @enderror --}}
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" tabindex="5">
+                        <label for="password_confirmation" class="form-label">Confirm Password</label>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">REGISTER</button>
                     @if ($errors->any())
+                        <ul class="mt-3">
                         @foreach ($errors->all() as $error )
-                            <ul class="list-unstyled mt-5">
-                                <li class="small text-danger">{{ $error }}</li>
-                            </ul>
+                            <li class="small text-danger">{{ $error }}</li>
                         @endforeach
+                        </ul>
                     @endif
 
                     </form>
@@ -58,19 +62,5 @@
             </div>
         </section>
     </main>
-    <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
 
-        togglePassword.addEventListener('click', (event) => {
-            // Toggle the type attribute using
-            // getAttribute() method
-            const type = password.getAttribute('type') === 'password' ?
-                'text' : 'password';
-            password.setAttribute('type', type);
-
-            // Toggle the eye and bi-eye icon
-            event.target.classList.toggle('bi-eye');
-        });
-    </script>
 @endsection
