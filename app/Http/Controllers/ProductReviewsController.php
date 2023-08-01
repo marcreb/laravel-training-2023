@@ -12,9 +12,14 @@ class ProductReviewsController extends Controller
     {
         // dd(request()->all());
 
-        request()->validate([
-            'body' => 'required'
-        ]);
+        request()->validate(
+        [
+            'body' => ['required', 'min:20']
+        ],
+        [
+            'body.min' => 'The review must be at least 20 characters.'
+        ]
+        );
 
         $product->reviews()->create([
             'user_id' => auth()->user()->id,

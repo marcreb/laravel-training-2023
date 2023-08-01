@@ -56,12 +56,20 @@ class DatabaseSeeder extends Seeder
         // ]);
         $user = User::factory()->create([
             'name' => 'Marc adina 1',
-            'username' => 'marcadina'
+            'username' => 'marcadina',
+            'user_role' => 'customer'
         ]);
 
         $user1 = User::factory()->create([
             'name' => 'Marc adina 2',
-            'username' => 'marcadina2'
+            'username' => 'marcadina2',
+            'user_role' => 'customer'
+        ]);
+
+        $adminAccount = User::factory()->create([
+            'name' => 'Marc Reb Adina',
+            'username' => 'marcrebadina',
+            'user_role' => 'superadmin'
         ]);
 
         //$user = User::factory()->create();

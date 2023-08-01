@@ -25,7 +25,7 @@
                         <input type="password" name="password"  class="form-control" id="password" tabindex="4">
 
                         <label for="password" class="form-label">Password</label>
-                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                        <i class="bi bi-eye-slash toggle-password" id="togglePassword"  data-target="password"></i>
                         {{-- @error('password')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror --}}

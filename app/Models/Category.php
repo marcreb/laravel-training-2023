@@ -30,4 +30,10 @@ class Category extends Model
         return $this->hasMany(Brand::class);
     }
 
+    // Define the self-referential relationship for child categories
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
 }

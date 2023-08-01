@@ -20,7 +20,7 @@
                         <div class="imagebox" style="background-image: url(/storage/images/{{ $product->image }}"></div>
                         <div class="card-body">
                             <p class="card-text text-center">
-                                <a href="product/{{ $product->slug }}"><strong>{{ $product->name }}</strong></a><br>
+                                <a href="../product/{{ $product->slug }}"><strong>{{ $product->name }}</strong></a><br>
 
                                 {{ $product->brand->name }}<br>
                                 {{ $product->price }}<br>

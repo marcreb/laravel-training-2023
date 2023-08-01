@@ -55,7 +55,10 @@
 
                                 <div class="form-group">
                                 <label for="body" class="mb-2">You can submit your review below</label>
-                                <textarea class="form-control" name="body" rows="3"></textarea>
+                                <textarea class="form-control" name="body" rows="3" placeholder="Something to say?" required></textarea>
+                                @error('body')
+                                    <div class="text-danger mt-2 small">{{ $message }}</div>
+                                @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary my-3 float-end">Submit Review</button>
                             </form>

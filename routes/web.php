@@ -11,7 +11,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\ProductReviewsController;
-
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,3 +125,7 @@ Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth'
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 
+Route::get('dashboard/products/create', [ProductController::class, 'create'])->middleware('admin');
+Route::post('/getBrands', [ProductController::class, 'getBrands']);
+
+Route::get('dashboard-assets/{asset}', [DashboardController::class, 'serve'])->where('asset', '(.*)');

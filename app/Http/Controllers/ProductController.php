@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Brand;
 
+use Symfony\Component\HttpFoundation\Response;
+
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -39,5 +41,24 @@ class ProductController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        return view('products.create', [
+            'categories' => Category::all(),
+            'brands' => Brand::all(),
+        ]);
+    }
+
+    public function getBrands(Request $request)
+    {
+        $selectedCategories = $request->input('categories', []);
+
+        // Get the brands that belong to the selected category
+        $brands = Brand::whereIn('category_id', $selectedCategories)
+            ->select('id', 'name')
+            ->get();
+
+        return response()->json($brands);
+    }
 
 }

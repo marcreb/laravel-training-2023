@@ -12,7 +12,7 @@
 $(document).ready(function () {
 
     hideAlertsAfterDuration(10000);
-    passwordToggle();
+
 
     // Function to hide alerts after a specified duration (in milliseconds)
     function hideAlertsAfterDuration(duration) {
@@ -21,21 +21,29 @@ $(document).ready(function () {
         }, duration);
     }
 
-    function passwordToggle() {
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
+    function passwordToggle(target) {
+        const targetId = $(target).data('target');
+        const passwordField = $('#' + targetId);
 
-        togglePassword.addEventListener('click', (event) => {
-            // Toggle the type attribute using
-            // getAttribute() method
-            const type = password.getAttribute('type') === 'password' ?
-                'text' : 'password';
-            password.setAttribute('type', type);
+        if (passwordField.attr('type') === 'password') {
+            // Toggle the type attribute to 'text' if it is currently 'password'
+            passwordField.attr('type', 'text');
 
             // Toggle the eye and bi-eye icon
-            event.target.classList.toggle('bi-eye');
-        });
+            $(target).removeClass('bi-eye-slash').addClass('bi-eye');
+        } else {
+            // Toggle the type attribute to 'password' if it is currently 'text'
+            passwordField.attr('type', 'password');
+
+            // Toggle the eye and bi-eye icon
+            $(target).removeClass('bi-eye').addClass('bi-eye-slash');
+        }
     }
+
+        // Attach the event listener to the toggle-password buttons
+    $('.toggle-password').click(function () {
+        passwordToggle(this);
+    });
 
 
 });

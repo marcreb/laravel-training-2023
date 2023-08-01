@@ -36,17 +36,18 @@
                     </div>
                     <div class="form-floating mb-3">
 
-                        <input type="password" name="password"  class="form-control" id="password" tabindex="4">
+                        <input type="password" name="password"  class="form-control password-toggle" id="password" tabindex="4">
 
                         <label for="password" class="form-label">Password</label>
-                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                        <i class="bi bi-eye-slash toggle-password" data-target="password" id="togglePassword"></i>
                         {{-- @error('password')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror --}}
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" tabindex="5">
+                        <input type="password" name="password_confirmation" class="form-control password-toggle" id="password_confirmation" tabindex="5">
                         <label for="password_confirmation" class="form-label">Confirm Password</label>
+                        <i class="bi bi-eye-slash toggle-password" data-target="password_confirmation" id="togglePasswordConfirmation"></i>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">REGISTER</button>
                     @if ($errors->any())
