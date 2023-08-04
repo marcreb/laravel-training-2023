@@ -21,13 +21,17 @@ class RegisterController extends Controller
         // dd(request()->all());
         $attributes = request()->validate([
             'name' => ['required', 'max:100'],
-            // 'username' => ['required','min:3', 'max:30', 'unique:users,username'],
-            'username' => ['required','min:3', 'max:30', Rule::unique('users', 'username')],
+            'profile_picture' => ['required', 'image'],
+            'username' => ['required','min:3', 'max:30', 'alpha_dash', Rule::unique('users', 'username')],
             'email' => ['required','email','max:100', Rule::unique('users', 'email')],
             'password' => ['required', 'confirmed', 'max:255','min:7'],
         ]);
 
-       $user = User::create($attributes);
+
+        $attributes['user_role'] = 'customer';
+        $attributes['profile_picture'] = request()->file('profile_picture')->store('profilepictures');
+
+        $user = User::create($attributes);
 
         auth()->login($user);
 

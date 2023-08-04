@@ -3,6 +3,8 @@ $(document).ready(function () {
     multiSelect();
     categoryDropdownTrigger();
 
+    $('#brandSelect').prop('disabled', true);
+
     function multiSelect() {
 
         $('.multiSelectTag').select2({
@@ -15,6 +17,7 @@ $(document).ready(function () {
     function categoryDropdownTrigger() {
         // Handle change event for the category select
         $('#categorySelect').on('change', function () {
+            $('#brandSelect').prop('disabled', false);
             var selectedCategories = $(this).val();
 
             if (selectedCategories.length === 0) {
@@ -48,6 +51,7 @@ $(document).ready(function () {
                         });
                         // Refresh Select2 after updating the options
                         brandSelect.trigger('change');
+                        // console.log(response);
                     },
                     error: function (error) {
                         console.log(error);
@@ -61,6 +65,8 @@ $(document).ready(function () {
             $('#brandSelect').val(null).trigger('change');
         });
     }
+
+
 
 });
 

@@ -8,17 +8,8 @@ use Illuminate\Support\Facades\Response;
 
 class DashboardController extends Controller
 {
-    public function serve($asset)
+    public function index()
     {
-        if (!Auth::check()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $path = public_path('dashboard-assets/' . $asset);
-        if (!file_exists($path)) {
-            return response()->json(['error' => 'File not found'], 404);
-        }
-
-        return Response::file($path);
+        return view('dashboard.index');
     }
 }

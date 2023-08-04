@@ -1,15 +1,29 @@
 <?php
 
 namespace App\Models;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Category;
+use App\Models\Brand;
 class Product extends Model
 {
+    use Sluggable;
     use HasFactory;
 
-    protected $fillable = ['name', 'user_id', 'brand_id', 'price', 'image', 'slug', 'category_id'];
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+
+
+     protected $fillable = ['name', 'user_id', 'brand_id', 'price', 'image', 'slug'];
+    // protected $guarded = [];
 
     protected $with = ['category','author'];
 
@@ -17,8 +31,8 @@ class Product extends Model
     {
 
         $query->when($filters['search'] ?? false, fn($query, $search) =>
-        $query
-            ->where('name', 'like', '%' . $search . '%')
+            $query
+                ->where('name', 'like', '%' . $search . '%')
 
         );
 
@@ -28,15 +42,16 @@ class Product extends Model
         );
 
         $query->when($filters['category'] ?? false, function ($query, $category) {
-            $query->where('category_id', $category);
+            $query->whereHas('category', function ($query) use ($category) {
+                $query->where('slug', $category);
+            });
         });
-
     }
 
     public function category()
     {
         //hasOne, hasMany, belongsTo, belongsToMany
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class,  'product_category');
 
     }
 
@@ -57,7 +72,7 @@ class Product extends Model
     public function brand()
     {
         //hasOne, hasMany, belongsTo, belongsToMany
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsToMany(Brand::class, 'product_brand');
 
     }
 
@@ -66,5 +81,16 @@ class Product extends Model
         //hasOne, hasMany, belongsTo, belongsToMany
         return $this->hasMany(Review::class);
 
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class,'product_category')
+            ->orderBy('categories.id', 'asc');
+    }
+
+    public function brands()
+    {
+        return $this->belongsToMany(Brand::class,'product_brand');
     }
 }

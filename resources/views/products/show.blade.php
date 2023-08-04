@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-6">
-                <img src="/storage/images/{{$product->image}}">
+                <img src="/storage/{{$product->image}}">
 
             </div>
 
@@ -13,9 +13,30 @@
                 <h1>{{ $product->name; }}</h1>
                 <hr>
                 <p>By <a href="/authors/{{ $product->author->username }}">{{ $product->author->name }}</a></p>
-                <p>Price: {!! $product->price !!}</p>
+                <p>Price: @money($product->price)</p>
 
-                <p>Categories: <a href="/categories/{{ $product->category->slug }}"> {{ $product->category->name }} </a></p>
+                @if ($product->categories->count() > 0)
+                                    <p>Categories:
+                                    @foreach ($product->categories as $category)
+                                        {{ $category->name }}
+                                        @unless ($loop->last)
+                                            ,
+                                        @endunless
+                                    @endforeach
+                                    </p>
+                                @endif
+
+                                @if ($product->brands->count() > 0)
+                                Brand:
+                                @foreach ($product->brands as $brand)
+                                    {{ $brand->name }}
+                                    @unless ($loop->last)
+                                        ,
+                                    @endunless
+                                @endforeach
+                                <br>
+                            @endif<br>
+                {{-- <p>Categories: <a href="/categories/{{ $product->category->slug }}"> {{ $product->category->name }} </a></p> --}}
             </div>
             <div class="reviews-section ">
                 <h2 class="text-center col-12 mt-5">Product Reviews</h2>
@@ -27,7 +48,11 @@
                             <div class="card p-3 text-center px-4 mb-3">
 
                                 <div class="user-image">
-                                    <img src="https://i.pravatar.cc/150?u={{ $review->user_id }}" class="rounded-circle mb-2" width="80">
+                                    @if (!empty($review->author->profile_picture))
+                                        <img src="/storage/{{ $review->author->profile_picture }}" class="rounded-circle mb-2" width="80">
+                                    @else
+                                        <img src="https://dummyimage.com/300x300/#eeeee/0011ff" class="rounded-circle mb-2" width="80">
+                                    @endif
                                 </div>
 
                                 <div class="user-content">

@@ -5,19 +5,26 @@
 
     <main>
         <section class="py-5 container">
+            <div class="row">
+                <div class="col-12 pb-3">
+                    <a href="/dashboard/users" class="float-end btn bg-error text-white">Go Back</a>
+                </div>
+            </div>
+            <hr>
             <div class="row py-lg-5">
 
-                <h1 class="border-bottom text-center pb-3 mb-5">REGISTER</h1>
+                <h1 class="border-bottom text-center pb-3 mb-5">CREATE NEW USER</h1>
 
                 <div class="col-lg-6 col-md-8 mx-auto card p-5">
-                <form action="/register" method="POST" class="justify-content-md-end" enctype="multipart/form-data">
+                <form action="/dashboard/users/create" method="POST" class="justify-content-md-end" enctype="multipart/form-data">
                     @csrf
+
                     <div class="profile-pic-wrapper mb-3">
                         <div class="pic-holder">
                           <!-- uploaded pic shown here -->
                           <img id="profilePic" class="pic" src="https://dummyimage.com/300x300/#eeeee/0011ff">
 
-                          <input class="uploadProfileInput" type="file" name="profile_picture" id="newProfilePhoto" accept=".jpg, .jpeg, .png" style="opacity: 0;" />
+                          <input class="uploadProfileInput" type="file" name="profile_picture" id="newProfilePhoto" accept=".jpg, .jpeg, .png" style="opacity: 0;" required/>
                           <label for="newProfilePhoto" class="upload-file-block">
                             <div class="text-center">
                               <div class="mb-2">
@@ -66,7 +73,20 @@
                         <label for="password_confirmation" class="form-label">Confirm Password</label>
                         <i class="bi bi-eye-slash toggle-password" data-target="password_confirmation" id="togglePasswordConfirmation"></i>
                     </div>
-                    <button type="submit" class="btn custom-success text-white w-100">REGISTER</button>
+                    <div class="form-floating mb-3">
+                        <select id="user_role" name="user_role" class="form-select" required>
+                            <option value="" disabled selected >Select User Role</option>
+                            @foreach ($userRoles as $role)
+                                <option value="{{ $role }}">{{ $role }}</option>
+                            @endforeach
+                        </select>
+                        <label for="user_role" class="form-label">User Role</label>
+                    </div>
+
+                    <button type="submit" class="btn custom-success text-white float-end ">Save User</button>
+                    <a href="/dashboard/users" class="btn btn-danger text-white float-end mx-2 "><span>Cancel</span></a>
+
+
                     @if ($errors->any())
                         <ul class="mt-3">
                         @foreach ($errors->all() as $error )

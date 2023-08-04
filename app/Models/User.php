@@ -49,12 +49,12 @@ class User extends Authenticatable
     //    return ucwords($username); //sets the format of the field when saving
 
     // }
-    public function posts()
-    {
-        //hasOne, hasMany, belongsTo, belongsToMany
-        return $this->hasMany(Post::class);
+    // public function posts()
+    // {
+    //     //hasOne, hasMany, belongsTo, belongsToMany
+    //     return $this->hasMany(Post::class);
 
-    }
+    // }
 
     public function products()
     {
